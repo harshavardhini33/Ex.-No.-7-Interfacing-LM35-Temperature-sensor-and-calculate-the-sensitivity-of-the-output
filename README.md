@@ -1,8 +1,5 @@
- 
-
-
-### Ex. No. :7
-## Date: 
+## Ex No 07: Interfacing LM35 Temperature sensor and calculate the sensitivity of the output
+### Date: 12 /11/ 2022 
 ### Interfacing LM35 Temperature sensor and calculate the sensitivity of the output
 
 ## Aim: 
@@ -192,35 +189,56 @@ Low-Impedance Output, 0.1 Ω for 1-mA Load
 Figure -08 Circuit diagram of interfacing an LM35  with ADC input pin 
 
 ## Kiel - Program 
- 
-## Tabulations and graph 
-Calculation of sensitivity 
-% of sensitivity is   S=  (T2-T1)/(A2-A1)*100
+```
+ #include <lpc214x.h>
+#include "LCD.h"
+#include "ADC.h"
+
+unsigned int val;
+int main()
+{
+	IO1DIR = 0xffffffff;
+	IO0DIR = 0x00000000;
+	PINSEL0 = 0x300;
+	VPBDIV = 0x02;
+	lcd_init();
+	show(" ADC Value: ");
+	while(1)
+	{
+		cmd(0x8b);
+		val = adc(0,6);
+		dat((val/1000)+48);
+		dat(((val/100)%10)+48);
+		dat(((val/10)%10)+48);
+		dat((val%10)+48);
+	}
+}
+```
+## Tabulation 
+Calculation of sensitivity % of sensitivity is   S=  (T2-T1)/(A2-A1)*100
+![200153513-b042219d-752b-499f-953d-cd5a06eef509](https://user-images.githubusercontent.com/93427208/201527527-136f3169-f757-45b7-824b-879b4587b639.jpg)
+
+## Graph
+![200153522-738d9dc5-e221-4732-9114-19270b9271e3](https://user-images.githubusercontent.com/93427208/201527543-4ec2b9b0-06ad-4be6-804e-6db3a1f6e25e.png)
 
 
-
-
-SL NO	Temperature value in °C (T)	ADC VALUE (A)	Sensitivity 
-1			-
-2			
-3			
-4			
-5			
-6			
-7			
-8			
-9			
-10			
-
-
- 
 Figure -09 graph between temperature values and ADC output 
+
+## Output :
+### Before stimulation :
+![image](https://user-images.githubusercontent.com/93427208/201527619-f5de2fc8-0b5b-4892-ba56-1e08724b032c.png)
+
+### After stimulation :
+![image](https://user-images.githubusercontent.com/93427208/201527643-20eacdd7-9815-45f7-add7-9a80c7aeab2c.png)
+
+### Circuit diagram :
+![image](https://user-images.githubusercontent.com/93427208/201527701-efd966c7-dde1-4735-b8e6-5b6b97728c3e.png)
 
 
 ## Result :
 Temperature sensor LM35 is interfaced to LPC2148 and its output is measured 
 
-## Output screen shots :
+
 
 
 
